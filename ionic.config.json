@@ -1,0 +1,7 @@
+{
+  "name": "project-items-manager",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
