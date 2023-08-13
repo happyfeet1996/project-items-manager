@@ -1,0 +1,30 @@
+<WingBlank [size]="'lg'">
+  <Card>
+    <CardHeader [title]="projectItem.description" [thumb]="itemIcon" [thumbStyle]="thumbStyle">
+      <!-- <ng-template #extra>
+        <span>{{projectItem.description}}</span>
+      </ng-template> -->
+      <ng-template #itemIcon>
+        <ion-icon name="checkmark-circle" *ngIf="projectItem.status===2" style="color: #2dd36f;font-size: 24px;">
+        </ion-icon>
+        <ion-icon name="ellipsis-horizontal-circle-sharp" *ngIf="projectItem.status===1"
+          style="color: #ffc409;font-size: 24px;">
+        </ion-icon>
+        <ion-icon name="infinite" *ngIf="projectItem.status===0" style="color: #eb445a;font-size: 24px;"></ion-icon>
+      </ng-template>
+
+    </CardHeader>
+    <CardBody>
+      <CheckboxItem *ngFor="let item of projectItem.childItems" [(ngModel)]="item.finished" [disabled]="true">
+        {{ item.description }}
+      </CheckboxItem>
+    </CardBody>
+    <CardFooter [extra]="footerExtra">
+      <ng-template #footerExtra>
+        <div Button [type]="'ghost'" [inline]="true" [size]="'small'" (click)="callDeleteFun()" style="margin-right: 15px;">删除</div>
+        <div Button [type]="'ghost'" [inline]="true" [size]="'small'" (click)="callEditFun()">编辑</div>
+      </ng-template>
+    </CardFooter>
+  </Card>
+</WingBlank>
+<br>

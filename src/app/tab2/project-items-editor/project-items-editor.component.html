@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="uploadProject()">
+        <ion-icon name="cloud-upload-outline"></ion-icon>
+      </ion-button>
+      <ion-button #addProjectItemBut id="add-project-item">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{currentProject?currentProject.id:""}}事项清单</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+
+  <div *ngIf="currentProject">
+    <project-item-edit-card *ngFor="let item of currentProject.projectItems" [projectItem]="item" (onEdit)="editProjectItem($event)">
+    </project-item-edit-card>
+  </div>
+
+</ion-content>
+
+<ion-modal id="addProjectItemModal" trigger="add-project-item" (didDismiss)="editModelLeaved()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancelAddProjectItem()">取消</ion-button>
+        </ion-buttons>
+        <ion-title style="text-align: center;">新建事项</ion-title>
+        <ion-buttons slot="end">
+          <ion-button [strong]="true" (click)="confirmAddProjectItem()">确认</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <br>
+      <div class="am-list">
+        <div class="am-list-header">修改描述</div>
+        <div class="am-list-body">
+          <InputItem [clear]="true" [placeholder]="'概括事项！'" [moneyKeyboardAlign]="'left'" [content]="'描述'"
+            [(ngModel)]="currentProjectItem.description">
+          </InputItem>
+        </div>
+      </div>
+      <br>
+      <div class="am-list">
+        <div class="am-list-header">新增或修改事项</div>
+        <div class="am-list-body">
+          <InputItem *ngFor="let item of currentProjectItem.childItems;let i = index" [(ngModel)]="item.description"
+            [clear]="true" [placeholder]="'请输入事项！'" [moneyKeyboardAlign]="'left'" [content]="'事项'+(i+1)">
+          </InputItem>
+          <div class="am-list-item am-list-item-middle">
+            <div class="am-list-line">
+              <div class="am-list-content" style="width:50%;color:#108ee9;text-align:center" (click)="deleteItem()">
+                删除
+              </div>
+              <div class="am-list-content" style="width:50%;color:#108ee9;text-align:center" (click)="addItem()">
+                添加
+              </div>
+            </div>
+            <div class="am-list-ripple" style="display: none;"></div>
+          </div>
+        </div>
+      </div>
+    </ion-content>
+
+
+  </ng-template>
+</ion-modal>
+<ActivityIndicator [toast]="true" [text]="'加载中...'" [animating]="isLoading"></ActivityIndicator>
+

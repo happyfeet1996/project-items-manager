@@ -1,17 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      我的
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <List [className]="'my-list'" [renderHeader]="'清除数据'">
+    <ListItem [arrow]="'horizontal'" (onClick)="confirmClearItems()">清除所有计划</ListItem>
+  </List>
 </ion-content>
+<ActivityIndicator [toast]="true" [text]="'加载中...'" [animating]="isLoading"></ActivityIndicator>

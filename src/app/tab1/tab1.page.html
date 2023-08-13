@@ -1,17 +1,23 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      今日事项
     </ion-title>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-content class="ion-padding" *ngIf="hasData">
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+  
+    <project-item-card *ngFor="let item of projectItems" [projectItem]="item" (dataChanged)="handleDataChanged($event)"></project-item-card>
+    
+  </ion-content>
+  <ActivityIndicator [toast]="true" [text]="'加载中...'" [animating]="isLoading"></ActivityIndicator>
+  <empty-data *ngIf="!hasData"></empty-data>
+
 </ion-content>

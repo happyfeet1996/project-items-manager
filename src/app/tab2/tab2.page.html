@@ -1,17 +1,76 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button id="add-project">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>
-      Tab 2
+      编辑计划
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <br>
+  <WingBlank [size]="'lg'">
+    <div *ngFor="let project of projects">
+      <Card>
+        <CardHeader [title]="project.id"></CardHeader>
+        <CardBody>
+          <div>{{project.remark}}</div>
+        </CardBody>
+        <CardFooter [extra]="footerExtra">
+          <ng-template #footerExtra>
+            <ion-nav-link router-direction="forward" [component]="component" [componentProps]="{'projectInfo':project}">
+              <div Button [type]="'ghost'" [inline]="true" [size]="'small'">详情</div>
+            </ion-nav-link>
+          </ng-template>
+        </CardFooter>
+      </Card>
+      <br>
+    </div>
+
+  </WingBlank>
+
 </ion-content>
+<ion-toast [isOpen]="toastVis" message="当前计划已存在，请修改时间！" [duration]="5000" position="middle"
+  (didDismiss)="toastVis = false"></ion-toast>
+<ion-modal id="addProjectModal" trigger="add-project" (didDismiss)="ionViewDidEnter()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancel()">取消</ion-button>
+        </ion-buttons>
+        <ion-title style="text-align: center;">新建日期计划</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="add()" [strong]="true">确认</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <List [className]="'date-picker-list'" [renderHeader]="'选择日期'">
+        <ListItem DatePicker [minDate]="minDate" [extra]="currentDateFormat(date, 'yyyy-mm-dd')" [arrow]="'horizontal'"
+          [mode]="'date'" [ngModel]="date" (onOk)="onOk($event)">
+          日期
+        </ListItem>
+      </List>
+      <br>
+      <div class="am-list">
+        <div class="am-list-header">备注</div>
+        <div class="am-list-body">
+          <InputItem [clear]="true" [placeholder]="'输入备注！'" [moneyKeyboardAlign]="'left'" [content]="'备注'"
+            [(ngModel)]="remark">
+          </InputItem>
+        </div>
+      </div>
+
+    </ion-content>
+    <ActivityIndicator [toast]="true" [text]="'加载中...'" [animating]="isLoading"></ActivityIndicator>
+
+
+  </ng-template>
+
+</ion-modal>
