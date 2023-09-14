@@ -6,7 +6,7 @@ import { Project } from 'src/app/shared/project';
 import { ProjectItem } from 'src/app/shared/project-item';
 
 @Component({
-  selector: 'app-project-items-editor',
+  selector: 'project-items-editor',
   templateUrl: './project-items-editor.component.html',
   styleUrls: [],
 })

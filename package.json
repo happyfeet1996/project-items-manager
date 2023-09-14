@@ -8,6 +8,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build-android": "ionic capacitor build android --prod",
+    "build-ios": "ionic capacitor build ios --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
@@ -26,15 +27,19 @@
     "@capacitor/app": "5.0.6",
     "@capacitor/core": "5.2.2",
     "@capacitor/haptics": "5.0.6",
+    "@capacitor/ios": "5.2.2",
     "@capacitor/keyboard": "5.0.6",
     "@capacitor/status-bar": "5.0.6",
     "@ionic/angular": "^7.0.0",
+    "@ionic/storage-angular": "^4.0.0",
     "ionicons": "^7.0.0",
+    "ng-zorro-antd-mobile": "^9.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "16.0.0",
     "@angular-devkit/build-angular": "^16.0.0",
     "@angular-eslint/builder": "^16.0.0",
     "@angular-eslint/eslint-plugin": "^16.0.0",

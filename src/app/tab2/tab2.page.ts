@@ -16,6 +16,10 @@ export class Tab2Page {
   @ViewChild(IonModal)
   addProjectModal!: IonModal;
 
+  set callFn(fnName:string){
+    (this as any)[fnName].call()
+  }
+
   minDate: any = new Date();
   date: Date = new Date();
   isLoading: boolean = false;
